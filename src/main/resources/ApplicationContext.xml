@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans>
+    <!--标明哪个包需要进行扫描-->
+    <component-scan base-package="com.athena"/>
+    <!--id标识对象，class是类的全限定类名-->
+    <bean id="accountDao" class="com.athena.dao.impl.JdbcAccountDaoImpl">
+        <property name="ConnectionUtils" ref="connectionUtils"/>
+    </bean>
+    <!--<bean id="transferService" class="com.athena.service.impl.TransferServiceImpl">
+        &lt;!&ndash;set+ name 之后锁定到传值的set方法了，通过反射技术可以调用该方法传入对应的值&ndash;&gt;
+        <property name="AccountDao" ref="accountDao"></property>
+    </bean>-->
+
+
+    <!--配置新增的三个Bean-->
+    <bean id="connectionUtils" class="com.athena.utils.ConnectionUtils"></bean>
+
+    <!--事务管理器-->
+    <bean id="transactionManager" class="com.athena.utils.TransactionManager">
+        <property name="ConnectionUtils" ref="connectionUtils"/>
+    </bean>
+
+    <!--代理对象工厂-->
+    <!--<bean id="proxyFactory" class="com.athena.factory.ProxyFactory">
+        <property name="TransactionManager" ref="transactionManager"/>
+    </bean>-->
+</beans>
